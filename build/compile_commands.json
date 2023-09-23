@@ -1,0 +1,8 @@
+[
+{
+  "directory": "C:/Users/user/OneDrive/Desktop/C++/stl-vector-wrapper-git-demo/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe   -g -o CMakeFiles\\stl-vector-wrapper.dir\\main.cpp.obj -c C:\\Users\\user\\OneDrive\\Desktop\\C++\\stl-vector-wrapper-git-demo\\main.cpp",
+  "file": "C:/Users/user/OneDrive/Desktop/C++/stl-vector-wrapper-git-demo/main.cpp",
+  "output": "CMakeFiles/stl-vector-wrapper.dir/main.cpp.obj"
+}
+]
