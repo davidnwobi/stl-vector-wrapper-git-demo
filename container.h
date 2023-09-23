@@ -35,6 +35,11 @@ public:
 
 	//methods
 	void push_back(const T& value);
+
+	~container() = default;
+
+	//methods
+	void push_back(const T& value);
 };
 
 template <
