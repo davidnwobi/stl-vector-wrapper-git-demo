@@ -8,7 +8,7 @@ template <
 	typename T,
 	typename Compare = std::less<T>,
 	typename Allocator = std::allocator<T>>
-	class container {
+	class container { //container class that keeps elements sorted
 private:
 		using vector_type = std::vector<T, Allocator>;
 		vector_type m_v;
@@ -30,6 +30,16 @@ public:
 	container(container&& other) noexcept;
 	container(container&& other, const Allocator& alloc);
 	container(std::initializer_list<T> init, const Allocator& alloc = Allocator());
+
+	~container() = default;
+
+	//methods
+	void push_back(const T& value);
+
+	~container() = default;
+
+	//methods
+	void push_back(const T& value);
 };
 
 template <
@@ -103,3 +113,12 @@ container<T,Compare, Allocator>::container (
 	std::initializer_list<T> init, 
 	const Allocator& alloc
 	) : m_v(init,alloc){}
+
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+void container<T,Compare, Allocator>::push_back(const T& value){
+	m_v.push_back(value);
+	std::sort(m_v.begin(), m_v.end());
+}
