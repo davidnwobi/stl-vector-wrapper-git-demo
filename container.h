@@ -8,7 +8,7 @@ template <
 	typename T,
 	typename Compare = std::less<T>,
 	typename Allocator = std::allocator<T>>
-	class container {
+	class container { 
 private:
 		using vector_type = std::vector<T, Allocator>;
 		vector_type m_v;
@@ -30,6 +30,11 @@ public:
 	container(container&& other) noexcept;
 	container(container&& other, const Allocator& alloc);
 	container(std::initializer_list<T> init, const Allocator& alloc = Allocator());
+
+	~container() = default;
+
+	//methods
+	void push_back(const T& value);
 };
 
 template <
