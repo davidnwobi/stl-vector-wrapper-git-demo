@@ -21,5 +21,14 @@ public:
 	using const_pointer = typename vector_type::const_pointer;
 	using compare_type = Compare;
  
+
+	container() noexcept(noexcept (Allocator()));
 };
 
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+container<T,Compare, Allocator>::container() noexcept(noexcept (Allocator())){
+    std::cout << "Default COnstructor\n";
+}
