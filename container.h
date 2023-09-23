@@ -30,16 +30,20 @@ public:
 	container(container&& other) noexcept;
 	container(container&& other, const Allocator& alloc);
 	container(std::initializer_list<T> init, const Allocator& alloc = Allocator());
-
 	~container() = default;
 
 	//methods
 	void push_back(const T& value);
+	void push_back(T&& value);
+	void pop_back() ;
+	
+	template<typename... Args>
+	void emplace_back(Args&&... args){
+		m_v.emplace_back(std::forward<Args>(args)...);
+		std::sort(m_v.begin(), m_v.end());
+	}
 
-	~container() = default;
 
-	//methods
-	void push_back(const T& value);
 };
 
 template <
@@ -121,4 +125,21 @@ template <
 void container<T,Compare, Allocator>::push_back(const T& value){
 	m_v.push_back(value);
 	std::sort(m_v.begin(), m_v.end());
+}
+
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+void container<T,Compare, Allocator>::push_back(T&& value){
+	m_v.push_back(std::move(value));
+	std::sort(m_v.begin(), m_v.end());
+}
+
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+void container<T,Compare, Allocator>::pop_back(){
+	m_v.pop_back();
 }
