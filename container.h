@@ -12,6 +12,15 @@ template <
 private:
 		using vector_type = std::vector<T, Allocator>;
 		vector_type m_v;
+
+		void push_back(const T& value);
+		void push_back(T&& value);
+
+		template<typename... Args>
+		void emplace_back(Args&&... args){
+			m_v.emplace_back(std::forward<Args>(args)...);
+			std::sort(m_v.begin(), m_v.end());
+		}
 public:
 	using value_type = typename vector_type::value_type;
 	using allocator_type = typename vector_type::allocator_type;
@@ -33,15 +42,21 @@ public:
 	~container() = default;
 
 	//methods
-	void push_back(const T& value);
-	void push_back(T&& value);
+
 	void pop_back() ;
 	
-	template<typename... Args>
-	void emplace_back(Args&&... args){
-		m_v.emplace_back(std::forward<Args>(args)...);
+
+
+	// Relevant parts from std::set
+	void insert(const T& value);
+	void insert(T&& value);
+	template <typename... Args>
+	void emplace(Args&&... args){
+		m_v.emplace(std::forward<Args>(args)...);
 		std::sort(m_v.begin(), m_v.end());
 	}
+
+
 
 
 };
@@ -143,3 +158,20 @@ template <
 void container<T,Compare, Allocator>::pop_back(){
 	m_v.pop_back();
 }
+
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+void container<T,Compare, Allocator>::insert(const T& value){
+	push_back(value);
+}
+
+template <
+	typename T,
+	typename Compare,
+	typename Allocator>
+void container<T,Compare, Allocator>::insert(T&& value){				
+	push_back(std::move(value));
+}
+
